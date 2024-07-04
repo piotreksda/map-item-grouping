@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+#  kafka:
+#    image: confluentinc/cp-kafka:latest
+#    ports:
+#      - "9092:9092"
+#    environment:
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9092
+#      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+#      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+#      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+#      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+#    volumes:
+#      - "kafka_data:/var/lib/kafka/data"
+
+  shopcrud:
+    build:
+      context: .
+      dockerfile: src/ShopCrud/Dockerfile
+    depends_on:
+#      - kafka
+      - mongodb-shopcrud
+    environment:
+      Kafka__BootstrapServers: "kafka:9092"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://aspire-dashboard:18889"
+      MongoDB__UserName: "root"
+      MongoDB__Password: "zaq1@WSX"
+      MongoDB__Host: "mongodb-shopCrud"
+      MongoDB__Port: "27017"
+      MongoDB__Name: "ShopsDemo"
+      
+  
+  shopmap:
+    build:
+      context: .
+      dockerfile: src/ShopMap/Dockerfile
+    depends_on:
+      - mongodb-shopmap
+    environment:
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://aspire-dashboard:18889"
+      MongoDB__UserName: "root"
+      MongoDB__Password: "zaq1@WSX"
+      MongoDB__Host: "mongodb-shopCrud"
+      MongoDB__Port: "27017"
+      MongoDB__Name: "ShopsDemo"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs/selfsigned.crt:/etc/nginx/ssl/selfsigned.crt
+      - ./certs/selfsigned.key:/etc/nginx/ssl/selfsigned.key
+    depends_on:
+      - shopcrud
+      - shopmap
+  
+  mongodb-shopcrud:
+    image: mongo:latest
+    container_name: mongodb-shopcrud
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=zaq1@WSX
+    ports:
+      - 27017
+    volumes:
+      - mongo-shopcrud-data:/data/db
+  
+  
+  mongodb-shopmap:
+    image: mongo:latest
+    container_name: mongodb-shopmap
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=zaq1@WSX
+    ports:
+      - 27017
+    volumes:
+      - mongo-shopmap-data:/data/db
+  
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:8.0.0
+    ports:
+      - "18889"
+      - "8080:18888"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+
+
+volumes:
+  kafka_data:
+  mongo-shopcrud-data:
+  mongo-shopmap-data:

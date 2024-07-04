@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopCrud", "src\ShopCrud\ShopCrud.csproj", "{55EB81FA-2F90-42D9-A030-DADDB6FF5625}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopMap", "src\ShopMap\ShopMap.csproj", "{F389C8EF-F6A0-4896-9A09-209FF01A7225}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4D91D147-7CEB-4C0D-834C-DA72E174076A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{572B5E07-CEDE-490D-BCF0-DBDE3F23E170}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{85551017-5E2E-48D9-8E57-194A919A872A}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+		nginx.conf = nginx.conf
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEventConsumer", "src\MapEventConsumer\MapEventConsumer.csproj", "{88299672-F615-4EA6-9D4C-27833538CCB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55EB81FA-2F90-42D9-A030-DADDB6FF5625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55EB81FA-2F90-42D9-A030-DADDB6FF5625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55EB81FA-2F90-42D9-A030-DADDB6FF5625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55EB81FA-2F90-42D9-A030-DADDB6FF5625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F389C8EF-F6A0-4896-9A09-209FF01A7225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F389C8EF-F6A0-4896-9A09-209FF01A7225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F389C8EF-F6A0-4896-9A09-209FF01A7225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F389C8EF-F6A0-4896-9A09-209FF01A7225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88299672-F615-4EA6-9D4C-27833538CCB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88299672-F615-4EA6-9D4C-27833538CCB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88299672-F615-4EA6-9D4C-27833538CCB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88299672-F615-4EA6-9D4C-27833538CCB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{55EB81FA-2F90-42D9-A030-DADDB6FF5625} = {4D91D147-7CEB-4C0D-834C-DA72E174076A}
+		{F389C8EF-F6A0-4896-9A09-209FF01A7225} = {4D91D147-7CEB-4C0D-834C-DA72E174076A}
+		{88299672-F615-4EA6-9D4C-27833538CCB8} = {4D91D147-7CEB-4C0D-834C-DA72E174076A}
+	EndGlobalSection
+EndGlobal
